@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import RoleCard from './RoleCard';
+import IntervuePollLogo from '../../components/IntervuePollLogo';
 
 export default function RoleSelection() {
     const navigate = useNavigate();
@@ -11,15 +11,14 @@ export default function RoleSelection() {
         if (selectedRole === 'teacher') {
             navigate('/create-questions');
         } else {
-            navigate('/student-entry');
+            navigate('/student');
         }
     };
 
     return (
         <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4 font-sans">
-            <div className="bg-brand text-white px-4 py-1.5 rounded-full flex items-center gap-2 text-sm font-semibold mb-8 shadow-sm">
-                <Sparkles size={16} className="fill-current" />
-                <span>Intervue Poll</span>
+            <div className="mb-8">
+                <IntervuePollLogo size="default" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-theme-dark text-center mb-3">
                 Welcome to the Live Polling System
@@ -48,7 +47,7 @@ export default function RoleSelection() {
 
             <button
                 onClick={handleContinue}
-                className="mt-12 bg-action hover:bg-action-hover text-white font-semibold py-3.5 px-12 rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl w-full max-w-xs text-lg"
+                className="mt-12 bg-gradient-to-r from-brand to-brand-light hover:opacity-90 text-white font-semibold py-3.5 px-12 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl w-full max-w-xs text-lg"
             >
                 Continue
             </button>

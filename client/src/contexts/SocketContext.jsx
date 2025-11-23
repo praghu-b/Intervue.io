@@ -9,11 +9,12 @@ const socket = io('http://localhost:5000');
 export const SocketProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [pollState, setPollState] = useState({ 
-        question: null, options: [], status: 'IDLE', timeLeft: 60, votedStudents: [] 
+        question: null, options: [], status: 'IDLE', timeLeft: 60, votedStudents: [], correctAnswerIndex: null 
     });
     const [users, setUsers] = useState([]);
     const [chatMessages, setChatMessages] = useState([]);
     const [isKicked, setIsKicked] = useState(false);
+    const [pollHistory, setPollHistory] = useState([]);
 
     useEffect(() => {
         socket.on('connect', () => setIsConnected(true));
@@ -33,6 +34,8 @@ export const SocketProvider = ({ children }) => {
             socket.disconnect(); // Hard disconnect
         });
 
+        socket.on('poll:history', (history) => setPollHistory(history));
+
         return () => {
             socket.off('connect');
             socket.off('disconnect');
@@ -41,11 +44,18 @@ export const SocketProvider = ({ children }) => {
             socket.off('chat:receive');
             socket.off('timer:update');
             socket.off('user:kicked');
+            socket.off('poll:history');
         };
     }, []);
 
+    const resetPoll = () => {
+        if (socket.connected) {
+            socket.emit('teacher:reset_poll');
+        }
+    };
+
     return (
-        <SocketContext.Provider value={{ socket, isConnected, pollState, users, chatMessages, isKicked }}>
+        <SocketContext.Provider value={{ socket, isConnected, pollState, users, chatMessages, isKicked, resetPoll, pollHistory }}>
             {children}
         </SocketContext.Provider>
     );

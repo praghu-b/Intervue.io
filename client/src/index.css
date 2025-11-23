@@ -11,7 +11,16 @@
   --color-theme-dark: #373737;
   --color-theme-gray: #6E6E6E;
   --color-theme-light: #F2F2F2;
+  --color-theme-error: #EF4444;
+  --color-theme-black: #000000;
+  --color-theme-dark-gray: #1F1F1F;
+  --color-theme-border-dark: #333333;
 
-  /* Font Family */
-  --font-sans: "Inter", sans-serif;
+  /* Font Family - Sora */
+  --font-sans: "Sora", sans-serif;
+}
+
+/* Apply Sora font globally */
+* {
+  font-family: "Sora", sans-serif;
 }
