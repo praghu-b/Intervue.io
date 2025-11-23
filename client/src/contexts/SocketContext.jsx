@@ -3,8 +3,10 @@ import io from 'socket.io-client';
 
 const SocketContext = createContext();
 
-// ⚠️ Match this to your backend port
-const socket = io('http://localhost:5000'); 
+const socket = io("https://intervue-io-3pu8.onrender.com", {
+  transports: ["websocket"],
+});
+
 
 export const SocketProvider = ({ children }) => {
     const [isConnected, setIsConnected] = useState(socket.connected);
